@@ -60,3 +60,79 @@ Hello World
 
 # 변수
 
+변수의 선언은 자료형과 변수명을 지정하며 이루어진다.
+
+```java
+int one;
+String two;
+```
+
+변수명에는 다음과 같은 규칙이 적용된다.
+
+- 변수명은 숫자로 시작할 수 없다.
+- `_`와 `&` 이외의 특수문자는 사용할 수 없다.
+- 자바의 키워드는 사용할 수 없다.
+
+```java
+// 잘못된 변수명의 사용 예
+int 1st;
+int a#;
+int class;
+```
+
+자주 쓰이는 자료형에는 int, long, double, boolean, char, String, StringBuffer, List, Map 등이 있다.
+
+```java
+StringBuffer sb;
+List myList;
+```
+
+변수에는 자료형에 맞는 값을 대입할 수 있으며 선언과 동시에 값을 대입할 수도 있다. 만약 자료형에 맞지 않는 값을 대입하면 오류가 난다.
+
+```java
+int a;
+a = 1;
+
+String b = "hello java";
+
+int c = "hello java";
+// Type mismatch: cannot convert from String to int
+```
+
+직접 클래스로 정의한 사용자 정의 자료형으로 변수를 만들 수도 있다.
+
+```java
+class Animal {
+}
+
+Animal cat;
+```
+
+
+
+
+# 주석
+
+### 블록 주석
+
+블록주석은 `/*`으로 시작하여 `*/`으로 끝마칠 수 있다.
+
+```java
+/*
+MyProgram에 대한 블록 주석
+*/
+public class MyProgram {
+}
+```
+
+### 라인 주석
+
+`//`를 시작한 부분부터 해당 라인의 끝까지 주석문이 된다. 한 라인에 대한 설명으로 주로 사용된다.
+
+```java
+int age; // 라인 주석
+```
+
+### 주석 사용시 주의점
+
+주석을 누구나 알고 있는 내용에 달게되면 소스코드를 지저분하게 만들 뿐이다. 주석이 꼭 필요한 부분에만 추가하고 주석이 없이도 이해할 수 있는 "Simple Code"를 구현하는 것을 목표로 해야한다.
