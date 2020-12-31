@@ -136,3 +136,28 @@ int age; // 라인 주석
 ### 주석 사용시 주의점
 
 주석을 누구나 알고 있는 내용에 달게되면 소스코드를 지저분하게 만들 뿐이다. 주석이 꼭 필요한 부분에만 추가하고 주석이 없이도 이해할 수 있는 "Simple Code"를 구현하는 것을 목표로 해야한다.
+
+
+
+# main 메서드
+
+main 메서드는 프로그램의 시작을 의미한다.
+
+다음은 main 메서드로 Hello World를 출력하는 예제이다.
+
+```java
+// Test.java
+public class Test {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+```
+
+앞에 public, static 그리고 void라는 키워드가 있으며 이는 추후 자세히 다룰 예정이다. 프로그램 실행 시 파라미터들은 `String[] args`에 저장된다.
+
+```bash
+c:\> java Test a b c
+```
+
+위와 같이 Test 클래스를 호출했다면 입력으로 전달한 a b c가 순서대로 스트링에 저장되게 된다.
