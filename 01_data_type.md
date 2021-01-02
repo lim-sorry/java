@@ -47,3 +47,52 @@ int hex = 0xC;
 
 ### 숫자연산
 
+사칙연산은 `+`, `-`, `*`, `/` 기호를 이루어진다.
+
+```java
+//Number.java
+
+package jump2java;
+
+public class Number {
+	public static void main(String[] args) {
+		int a = 10;
+		int b = 5;
+		System.out.println(a + b); // 15
+		System.out.println(a - b); // 5
+		System.out.println(a * b); // 50
+		System.out.println(a / b); // 2
+	}
+}
+```
+
+`%` 연산자는 나머지 값을 반환하는 연산자이다.
+
+```java
+System.out.println(7 % 3); // 1
+System.out.println(3 % 7); // 3
+```
+
+
+
+### 증감연산
+
+`--` 혹은 `++` 기호를 증감연산자라 부르며 이를 이용하여 **값을 증가시키거나 감소시킬 수 있다.**
+
+```java
+int i = 0;
+int j = 10;
+i++;
+j--;
+System.out.println(i); // 1
+System.out.println(j); // 9
+```
+
+이때 연산자의 위치에 따라 결과가 바뀜을 주의하자.  증감연산자가 변수 뒤에 붙으면 변수가 참조된 이후에 증감이 이뤄지고, 앞에 붙으면 증감이 이뤄진 후 참조된다.
+
+```java
+int l = 0;
+System.out.println(++l); // 1
+System.out.println(l); // 1
+```
+
