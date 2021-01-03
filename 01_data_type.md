@@ -96,3 +96,38 @@ System.out.println(++l); // 1
 System.out.println(l); // 1
 ```
 
+
+
+# Boolean
+
+참 또는 거짓 값을 갖는 자료형을 부울 자료형이라고 한다. 대입되는 값은 참(true) 또는 거짓(false)만 가능하다.
+
+
+
+### 부울 연산
+
+참, 거짓을 판단하는 부울 연산의 결과값이 대입될 수도 있다.
+
+```java
+2 > 1			// 참
+1 == 2			// 거짓
+3 % 2 == 1		// 참
+"3".equals("2")	// 거짓
+```
+
+
+
+### 조건문
+
+조건문의 판단 기준으로 부울 연산이 많이 사용된다.
+
+```java
+int base = 180;
+int height = 185;
+boolean isTall = height > base;
+
+if (isTall) {
+    System.out.println("키가 급니다");
+}
+```
+
