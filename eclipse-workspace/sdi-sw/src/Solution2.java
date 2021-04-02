@@ -25,5 +25,5 @@ public class Solution2 {
 			System.out.println("#"+tc+" "+ans);
 		}
 	}
-	
+
 }
