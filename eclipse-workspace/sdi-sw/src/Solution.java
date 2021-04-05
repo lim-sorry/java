@@ -2,70 +2,53 @@ import java.io.*;
 import java.util.*;
 
 public class Solution {
-	
+	static int v, e;
+	static ArrayList<HashSet<Integer>> g;
+	static Stack<Integer> s;
+	static boolean[] visited;
+	static void init() {
+		s = new Stack<>();
+		visited = new boolean[v+1];
+		Arrays.fill(visited, true);
+	}
+	static void find() {
+		init();
+		while(s.size() < v) {
+			for(int i = 1; i < v+1; i++) {
+				if(visited[i] && g.get(i).size() == 0) {
+					s.push(i);
+					for(int j = 1; j < v+1; j++) {
+						if(g.get(j).contains(i)) {
+							g.get(j).remove(i);
+						}
+					}
+					visited[i] = false;
+				}
+			}
+		}
+	}
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int t = Integer.parseInt(br.readLine());
-		for(int tc = 1; tc <= t; tc++) {
+		for(int tc = 1; tc < 11; tc++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			String str = st.nextToken();
-			char[] cArr = str.toCharArray();
-			int cnt = Integer.parseInt(st.nextToken());
-			
-			int[] changeLog = new int[cArr.length]; // [0,1,2,3,4,5]
-			for(int i = 0; i < cArr.length; i++) {
-				changeLog[i] = i;
+			v = Integer.parseInt(st.nextToken());
+			e = Integer.parseInt(st.nextToken());
+			g = new ArrayList<HashSet<Integer>>(v+1);
+			for(int i = 0; i < v+1; i++) {
+				g.add(new HashSet<Integer>());
 			}
-			while(cnt > 0) {
-				int maxi = cArr.length-1;
-				int mini = 0;
-				boolean flag = true;
-				
-				for(int i = 0; i < cArr.length-1; i++) {
-					System.out.println(cnt + " " + cArr[i] +" "+ cArr[i+1] + (cArr[i] < cArr[i+1]));
-					if(cArr[i] < cArr[i+1]) {
-						mini = i;
-						flag = false;
-						break;
-					}
-				}
-				if(flag) {
-					break;
-				}
-				
-				int tmin = mini;
-				for(int i = cArr.length-2; i >= 0; i--) {
-					if(i >= tmin && cArr[i] > cArr[maxi]) {
-						maxi = i;
-					} else if(cArr[i] < cArr[maxi]) {
-						mini = i;
-					}
-				}
-				
-				System.out.println(maxi + " " + mini);
-				
-				char tempChar;
-				tempChar = cArr[mini];
-				cArr[mini] = cArr[maxi];
-				cArr[maxi] = tempChar;
-				int tempInt;
-				tempInt = changeLog[mini];
-				changeLog[mini] = changeLog[maxi];
-				changeLog[maxi] = tempInt;			
-				
-				cnt--;
+			st = new StringTokenizer(br.readLine());
+			for(int i = 0; i < e; i++) {
+				int from =Integer.parseInt(st.nextToken());
+				int to =Integer.parseInt(st.nextToken());
+				g.get(to).add(from);
 			}
-			int c = 1;
-			for(int i = 1; i < cArr.length; i++) {
-				if(cArr[i-1] == cArr[i]) {
-					c++;
-				} else if(cArr[i-1] < cArr[i]) {
-					break;
-				} else {
-					
-				}
+			find();
+			StringBuilder sb = new StringBuilder();
+			for(int i : s) {
+				sb.append(" "+i);
 			}
-			System.out.println(Arrays.toString(cArr));
+			System.out.println("#"+tc+sb);
 		}
 	}
 
