@@ -2,53 +2,50 @@ import java.io.*;
 import java.util.*;
 
 public class Solution {
-	static int v, e;
-	static ArrayList<HashSet<Integer>> g;
-	static Stack<Integer> s;
-	static boolean[] visited;
-	static void init() {
-		s = new Stack<>();
-		visited = new boolean[v+1];
-		Arrays.fill(visited, true);
-	}
-	static void find() {
-		init();
-		while(s.size() < v) {
-			for(int i = 1; i < v+1; i++) {
-				if(visited[i] && g.get(i).size() == 0) {
-					s.push(i);
-					for(int j = 1; j < v+1; j++) {
-						if(g.get(j).contains(i)) {
-							g.get(j).remove(i);
-						}
-					}
-					visited[i] = false;
-				}
-			}
-		}
-	}
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		for(int tc = 1; tc < 11; tc++) {
+		int T = Integer.parseInt(br.readLine());
+		for(int tc=1; tc<T+1; tc++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			v = Integer.parseInt(st.nextToken());
-			e = Integer.parseInt(st.nextToken());
-			g = new ArrayList<HashSet<Integer>>(v+1);
-			for(int i = 0; i < v+1; i++) {
-				g.add(new HashSet<Integer>());
+			int V = Integer.parseInt(st.nextToken());
+			int E = Integer.parseInt(st.nextToken());
+			int n1 = Integer.parseInt(st.nextToken());
+			int n2 = Integer.parseInt(st.nextToken());
+			ArrayList<LinkedList<Integer>> pcList = new ArrayList<>(V+1);
+			ArrayList<LinkedList<Integer>> cpList = new ArrayList<>(V+1);
+			for(int i=0; i<V+1; i++) {
+				pcList.add(new LinkedList<Integer>());
+				cpList.add(new LinkedList<Integer>());
 			}
 			st = new StringTokenizer(br.readLine());
-			for(int i = 0; i < e; i++) {
-				int from =Integer.parseInt(st.nextToken());
-				int to =Integer.parseInt(st.nextToken());
-				g.get(to).add(from);
+			for(int i=0; i<E; i++) {
+				int p = Integer.parseInt(st.nextToken());
+				int c = Integer.parseInt(st.nextToken());
+				pcList.get(p).add(c);
+				cpList.get(c).add(p);
 			}
-			find();
-			StringBuilder sb = new StringBuilder();
-			for(int i : s) {
-				sb.append(" "+i);
+			int root = n1;
+			LinkedList<Integer> roots = new LinkedList<>();
+			while(root!=1) {
+				root = cpList.get(root).peek();
+				roots.add(root);
 			}
-			System.out.println("#"+tc+sb);
+			root = n2;
+			while(!roots.contains(root)) {
+				root = cpList.get(root).peek();
+			}
+			System.out.print("#"+tc+" "+root+" ");
+			Queue<Integer> q = new LinkedList<>();
+			int ans = 1;
+			q.offer(root);
+			while(!q.isEmpty()) {
+				int n = q.poll();
+				for(int i: pcList.get(n)) {
+					q.offer(i);
+					ans++;
+				}
+			}
+			System.out.println(ans);
 		}
 	}
 
