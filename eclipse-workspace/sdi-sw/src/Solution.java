@@ -1,52 +1,59 @@
 import java.io.*;
 import java.util.*;
 
+class Node implements Comparable<Node>{
+	int x, y, c;
+	
+	public Node (int x, int y, int c){
+		this.x = x;
+		this.y = y;
+		this.c = c;
+	}
+	
+	@Override
+	public int compareTo(Node o) {
+		return this.c-o.c;
+	}
+	
+}
 public class Solution {
+
 	public static void main(String[] args) throws Exception {
+		System.setIn(new FileInputStream("input.txt"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
 		for(int tc=1; tc<T+1; tc++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			int V = Integer.parseInt(st.nextToken());
-			int E = Integer.parseInt(st.nextToken());
-			int n1 = Integer.parseInt(st.nextToken());
-			int n2 = Integer.parseInt(st.nextToken());
-			ArrayList<LinkedList<Integer>> pcList = new ArrayList<>(V+1);
-			ArrayList<LinkedList<Integer>> cpList = new ArrayList<>(V+1);
-			for(int i=0; i<V+1; i++) {
-				pcList.add(new LinkedList<Integer>());
-				cpList.add(new LinkedList<Integer>());
+			int N = Integer.parseInt(br.readLine());
+			char[][] arr = new char[N][N];
+			for(int i=0; i<N; i++) {
+				arr[i] = br.readLine().toCharArray();
 			}
-			st = new StringTokenizer(br.readLine());
-			for(int i=0; i<E; i++) {
-				int p = Integer.parseInt(st.nextToken());
-				int c = Integer.parseInt(st.nextToken());
-				pcList.get(p).add(c);
-				cpList.get(c).add(p);
+			Node start = new Node(0,0,0);
+			int[][] cnt = new int[N][N];
+			for(int[] c: cnt) {
+				Arrays.fill(c, 999999999);
 			}
-			int root = n1;
-			LinkedList<Integer> roots = new LinkedList<>();
-			while(root!=1) {
-				root = cpList.get(root).peek();
-				roots.add(root);
-			}
-			root = n2;
-			while(!roots.contains(root)) {
-				root = cpList.get(root).peek();
-			}
-			System.out.print("#"+tc+" "+root+" ");
-			Queue<Integer> q = new LinkedList<>();
-			int ans = 1;
-			q.offer(root);
-			while(!q.isEmpty()) {
-				int n = q.poll();
-				for(int i: pcList.get(n)) {
-					q.offer(i);
-					ans++;
+			int[] d = {1,0,-1,0,1};
+			PriorityQueue<Node> pq = new PriorityQueue<>();
+			pq.add(start);
+			while(true) {
+				Node u = pq.poll();
+				if(u.x == N-1 && u.y == N-1) {
+					break;
+				}
+				for(int i=0; i<4; i++) {
+					int x = u.x+d[i];
+					int y = u.y+d[i+1];
+					if(0 <= x && x < N && 0 <= y && y < N) {
+						if(u.c+arr[x][y]-48 < cnt[x][y]) {
+							Node v = new Node(x, y, u.c+arr[x][y]-48);
+							cnt[v.x][v.y] = v.c;
+							pq.add(v);
+						}
+					}
 				}
 			}
-			System.out.println(ans);
+			System.out.println("#"+tc+" "+cnt[N-1][N-1]);
 		}
 	}
-
 }
